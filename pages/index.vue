@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h1>
-      MY FAVORITE MOVIES
+      FAVORITE MOVIES
     </h1>
     <h2>
         Thank you for coming to my web site!<br>

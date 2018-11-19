@@ -4,7 +4,7 @@
             class="title"
             @click="backToTop"
         >
-            MY FAVORITE MOVIES
+            FAVORITE MOVIES
         </h1>
     </header>
 </template>
