@@ -1,66 +1,142 @@
 <template>
-  <section class="container">
-    <div>
-      <logo/>
-      <h1 class="title">
-        scraping-web-site
-      </h1>
-      <h2 class="subtitle">
-        My super-excellent Nuxt.js project
-      </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green">Documentation</a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey">GitHub</a>
-      </div>
-    </div>
-  </section>
+  <div>
+    <section class="container">
+        <logo/>
+        <h1 class="title">
+          MY FAVORITE MOVIES
+        </h1>
+        <h2 class="subtitle">
+           Thank you for coming to my web site!<br>
+           This site will introduce my favorite movies!
+        </h2>
+        <ul>
+          <li v-for="movie in movies" :key="movie.id">
+            <img :src="'https://image.tmdb.org/t/p/w500' + movie.backdrop_path" />
+            <div class="head">
+              <h3>{{ movie.title }}</h3>
+              <span class="rate">{{ movie.vote_average }}</span>
+            </div>
+            <p class="release-date">{{ movie.release_date }}</p>
+            <p class="overview">{{ movie.overview }}</p>
+          </li>
+        </ul>
+    </section>
+
+  </div>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
-
 export default {
-  components: {
-    Logo
+  computed: {
+    movies() {
+      const page = this.$route.query.page || 1;
+      const movies = [...this.$store.state.movies];
+      return movies.splice((page - 1) * 20, 20);
+    }
   }
-}
+};
 </script>
 
-<style>
-
+<style lang="scss" scoped>
 .container {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
+  padding: 80px 0;
 
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
+  h1 {
+    font-size: 40px;
+    text-align: center;
+  }
 
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
+  h2 {
+    font-size: 24px;
+    color: #ccc;
+    text-align: center;
+  }
 
-.links {
-  padding-top: 15px;
+  ul {
+    width: 70%;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    padding: 40px 0;
+
+    li {
+      width: calc(33.3% - (20px * 2));
+      margin: 16px 20px 40px 20px;
+      display: flex;
+      flex-direction: column;
+      background-color: #fff;
+      transition: all 0.5s;
+
+      &:hover {
+        box-shadow: #ccc 0px 0px 8px 0px;
+        padding: 16px;
+        width: calc((33.3% - (20px * 2)) + 60px);
+        margin: -10px -10px 0 -10px;
+        z-index: 100;
+
+        .overview {
+          max-height: 1000px;
+          height: auto;
+
+          &::before {
+            width: 0;
+          }
+        }
+      }
+
+      img {
+        width: 100%;
+        height: auto;
+        margin-bottom: 8px;
+      }
+
+      .head {
+        position: relative;
+
+        h3 {
+          font-size: 18px;
+          margin: 8px 0;
+          padding-right: 24px;
+        }
+
+        .rate {
+          position: absolute;
+          bottom: 8px;
+          right: 0;
+          font-size: 13px;
+          line-height: 1.5;
+          color: #888;
+        }
+      }
+
+      .release-date {
+        font-size: 13px;
+        line-height: 1.5;
+        color: #888;
+        margin-bottom: 0.333em;
+      }
+
+      .overview {
+        font-size: 14px;
+        line-height: 1.5;
+        color: #888;
+        position: relative;
+        max-height: calc(14px * 1.5 * 5);
+        height: calc(14px * 1.5 * 5);
+        overflow: hidden;
+        transition: all 0.5s;
+
+        &::before {
+          content: "";
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          background-image: linear-gradient(90deg, transparent 0, #fff 70%);
+          height: calc(14px * 1.5);
+          width: 120px;
+        }
+      }
+    }
+  }
 }
 </style>
