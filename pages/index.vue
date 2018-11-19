@@ -7,6 +7,7 @@
         Thank you for coming to my web site!<br>
         This site will introduce my favorite movies!
     </h2>
+
     <ul>
       <li v-for="movie in movies" :key="movie.id">
         <img :src="'https://image.tmdb.org/t/p/w500' + movie.backdrop_path" />
@@ -21,16 +22,35 @@
         <p class="overview">{{ movie.overview }}</p>
       </li>
     </ul>
+    
+    <div class="paginator">
+      <a
+        v-for="i in [1, 2, 3, 4, 5]"
+        :key="i"
+        @click="paginate(i)"
+        :class="{current: page === `${i}`}"
+      >
+        {{ i }}
+      </a>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   computed: {
+    page() {
+      return this.$route.query.page || "1";
+    },
     movies() {
-      const page = this.$route.query.page || 1;
       const movies = [...this.$store.state.movies];
-      return movies.splice((page - 1) * 20, 20);
+      return movies.splice((this.page - 1) * 21, 21);
+    }
+  },
+  methods: {
+    paginate(to) {
+      this.$router.push(`/?page=${to}`);
+      window.scrollTo(0, 0);
     }
   }
 };
@@ -140,6 +160,23 @@ export default {
           height: calc(14px * 1.5);
           width: 120px;
         }
+      }
+    }
+  }
+
+  .paginator {
+    text-align: center;
+
+    a {
+      cursor: pointer;
+      margin: 0 8px;
+
+      &:hover {
+        text-decoration: underline;
+      }
+
+      &.current {
+        font-weight: bold;
       }
     }
   }
