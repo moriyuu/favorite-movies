@@ -1,27 +1,26 @@
 <template>
-  <div>
-    <section class="container">
-        <logo/>
-        <h1 class="title">
-          MY FAVORITE MOVIES
-        </h1>
-        <h2 class="subtitle">
-           Thank you for coming to my web site!<br>
-           This site will introduce my favorite movies!
-        </h2>
-        <ul>
-          <li v-for="movie in movies" :key="movie.id">
-            <img :src="'https://image.tmdb.org/t/p/w500' + movie.backdrop_path" />
-            <div class="head">
-              <h3>{{ movie.title }}</h3>
-              <span class="rate">{{ movie.vote_average }}</span>
-            </div>
-            <p class="release-date">{{ movie.release_date }}</p>
-            <p class="overview">{{ movie.overview }}</p>
-          </li>
-        </ul>
-    </section>
-
+  <div class="container">
+    <h1>
+      MY FAVORITE MOVIES
+    </h1>
+    <h2>
+        Thank you for coming to my web site!<br>
+        This site will introduce my favorite movies!
+    </h2>
+    <ul>
+      <li v-for="movie in movies" :key="movie.id">
+        <img :src="'https://image.tmdb.org/t/p/w500' + movie.backdrop_path" />
+        <div class="head">
+          <h3>{{ movie.title }}</h3>
+          <span class="rate">
+            <v-icon size="16px">star_border</v-icon>
+            <span class="num">{{ movie.vote_average }}</span>
+          </span>
+        </div>
+        <p class="release-date">{{ movie.release_date }}</p>
+        <p class="overview">{{ movie.overview }}</p>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -106,6 +105,12 @@ export default {
           font-size: 13px;
           line-height: 1.5;
           color: #888;
+          display: flex;
+          align-items: center;
+
+          .num {
+            margin-left: 2px;
+          }
         }
       }
 
