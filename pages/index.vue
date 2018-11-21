@@ -22,16 +22,16 @@
         <p class="overview">{{ movie.overview }}</p>
       </li>
     </ul>
-    
+
     <div class="paginator">
-      <a
+      <router-link
         v-for="i in [1, 2, 3, 4, 5]"
-        :key="i"
-        @click="paginate(i)"
+        :key="'paginator' + i"
+        :to="'/?page=' + i"
         :class="{current: page === `${i}`}"
       >
-        {{ i }}
-      </a>
+       <span @click="scrollToTop">{{ i }}</span>
+      </router-link>
     </div>
   </div>
 </template>
@@ -48,8 +48,7 @@ export default {
     }
   },
   methods: {
-    paginate(to) {
-      this.$router.push(`/?page=${to}`);
+    scrollToTop() {
       window.scrollTo(0, 0);
     }
   }
@@ -170,6 +169,11 @@ export default {
     a {
       cursor: pointer;
       margin: 0 8px;
+      text-decoration: none;
+
+      &:visited {
+        color: #000;
+      }
 
       &:hover {
         text-decoration: underline;
