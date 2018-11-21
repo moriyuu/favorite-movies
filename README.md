@@ -4,7 +4,7 @@
 
 ## Build Setup
 
-``` bash
+```bash
 # install dependencies
 $ yarn install
 
@@ -14,6 +14,10 @@ $ yarn run dev
 # build for production and launch server
 $ yarn run build
 $ yarn start
+
+# build for production and launch server with docker
+$ docker-compose build
+$ docker-compose up
 
 # generate static project
 $ yarn run generate
