@@ -169,6 +169,7 @@ export default {
     a {
       cursor: pointer;
       margin: 0 8px;
+      color: #000;
       text-decoration: none;
 
       &:visited {
