@@ -1,8 +1,8 @@
 version: "3"
 services:
-  scraping-web-site:
+  web:
     build: ./
-    image: scraping-web-site
+    image: web
     tty: true
     ports:
       - "80:80"

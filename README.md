@@ -1,6 +1,8 @@
-# scraping-web-site
+# FAVORITE MOVIES
 
-> My super-excellent Nuxt.js project
+> Static web site made with `nuxt generate`
+
+https://fav-movies.netlify.com/
 
 ## Build Setup
 
